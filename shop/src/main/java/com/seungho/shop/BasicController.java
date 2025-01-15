@@ -9,7 +9,7 @@ public class BasicController {
 
     @GetMapping("/")
     //@ResponseBody 는 문자 그대로 보내주세요란 의미 빼야 html 파일이 return됨
-    
+
     String hello(){
         return "index.html";
     }
