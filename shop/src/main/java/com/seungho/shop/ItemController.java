@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,14 +21,25 @@ public class ItemController {
 
     @GetMapping("/list")
     String list(Model model) {
-
         List<Item> result = itemRepository.findAll();
         Model items = model.addAttribute("items", result);
 
-        var a = new Item();
-        System.out.println(a.toString());
-
         return "list.html";
+    }
+
+
+    @GetMapping("/write")
+    String write() {
+        return "write.html";
+    }
+
+
+    @PostMapping("/add")
+    String addPost(@ModelAttribute Item item) { // Item 클래스의 오브젝트를 하나 뽑아서 바로 넣어줌
+
+        itemRepository.save(item);
+
+        return "redirect:/list";
     }
 
 }
