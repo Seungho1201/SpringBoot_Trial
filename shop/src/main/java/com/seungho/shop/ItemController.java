@@ -20,9 +20,11 @@ public class ItemController {
     String list(Model model) {
 
         List<Item> result = itemRepository.findAll();
-        System.out.println(result);
+        Model items = model.addAttribute("items", result);
 
-        model.addAttribute("name","테스트");
+        var a = new Item();
+        System.out.println(a.toString());
+
         return "list.html";
     }
 
