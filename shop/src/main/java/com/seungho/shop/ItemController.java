@@ -16,12 +16,15 @@ public class ItemController {
     // 인터페이스를 원하는 클래스에 Repository 등록
     // itemRepository 이 안에 DB 입출력 함수 잔뜩 들어있음
     // 사실상 Lombok임
+    // 스프링이 오브젝트 하나 뽑아서 넣어줌
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
     @GetMapping("/list")
     String list(Model model) {
-        List<Item> result = itemRepository.findAll();
-        Model items = model.addAttribute("items", result);
+
+        // Service 레이어 분리
+        itemService.listItem(model);
 
         return "list.html";
     }
@@ -33,7 +36,9 @@ public class ItemController {
 
     @PostMapping("/add")
     String addPost(@ModelAttribute Item item) { // Item 클래스의 오브젝트를 하나 뽑아서 바로 넣어줌
-        itemRepository.save(item);
+
+        // Service 레이어 분리
+        itemService.saveItem(item);
 
         return "redirect:/list";
     }
@@ -41,9 +46,7 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) throws Exception {
 
-
-
-            Optional<Item> result = itemRepository.findById(id);
+        Optional<Item> result= itemService.detailItem(id);
 
             if(result.isPresent()) {
                 model.addAttribute("item", result.get());
