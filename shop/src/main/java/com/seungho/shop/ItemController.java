@@ -1,6 +1,7 @@
 package com.seungho.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,17 +39,21 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model) {
+    String detail(@PathVariable Long id, Model model) throws Exception {
 
-        Optional<Item> result = itemRepository.findById(id);
 
-        if(result.isPresent()) {
-            model.addAttribute("item", result.get());
-        } else {
-            return "redirect:/list";
-        }
 
-        return "detail.html";
+            Optional<Item> result = itemRepository.findById(id);
+
+            if(result.isPresent()) {
+                model.addAttribute("item", result.get());
+                return "detail.html";
+            } else {
+                return "redirect:/list";
+            }
+
     }
+
+
 
 }
