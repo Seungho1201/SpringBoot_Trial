@@ -21,6 +21,9 @@
                 <h4 th:text="${i.title}"> 상품 이름 </h4>
                 <p th:text="${i.price}"> 상품 가격 </p>
             </a>
+            <a th:href="@{'edit/'+ ${i.id}}">
+                <p>✏️</p>
+            </a>
         </div>
 
 </div>

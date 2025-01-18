@@ -54,8 +54,40 @@ public class ItemController {
             } else {
                 return "redirect:/list";
             }
-
     }
+
+    @GetMapping("/edit/{id}")
+    String edit(@PathVariable Long id, Model model){
+
+        Optional<Item> result= itemRepository.findById(id);
+
+        if(result.isPresent()) {
+            model.addAttribute("item", result.get());
+        } else {
+            return "redirect:/list";
+        }
+
+        return "edit.html";
+    }
+
+    @PostMapping("/editItem/{id}")
+    String editItem(@PathVariable Long id, String title, int price){
+        //Optional<Item> editResult= itemRepository.save(id);
+        Item item = new Item();
+
+        item.setId(id);
+        item.setTitle(title);
+        item.setPrice(price);
+
+
+        itemRepository.save(item);
+
+
+        return "redirect:/list";
+    }
+
+
+
 
 
 
