@@ -13,6 +13,7 @@
 <div th:replace="~{nav.html::navbar}"></div>
 
 <form th:action="@{'/editItem/' + ${item.id}}" method="POST">
+    <input name="id" th:value = "${item.id}" style="display: none">
     <input name="title" th:value = "${item.title}">
     <input name="price" th:value = "${item.price}">
 

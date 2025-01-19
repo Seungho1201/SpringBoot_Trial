@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -21,12 +21,17 @@
                 <h4 th:text="${i.title}"> 상품 이름 </h4>
                 <p th:text="${i.price}"> 상품 가격 </p>
             </a>
-            <a th:href="@{'edit/'+ ${i.id}}">
-                <p>✏️</p>
-            </a>
+            <a th:href="@{'edit/'+ ${i.id}}">✏️</a>
+
+            <form method="POST" th:action="@{'/delete/' + ${i.id}}">
+                <button type="submit" style="all: unset; cursor: pointer;">🗑️</button>
+            </form>
+
         </div>
 
 </div>
+
+
 
 
 </body>

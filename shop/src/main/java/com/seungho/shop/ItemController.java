@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -44,7 +45,7 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model) throws Exception {
+    String detail(@PathVariable Long id, Model model) {
 
         Optional<Item> result= itemService.detailItem(id);
 
@@ -72,16 +73,42 @@ public class ItemController {
 
     @PostMapping("/editItem/{id}")
     String editItem(@PathVariable Long id, String title, int price){
-        //Optional<Item> editResult= itemRepository.save(id);
+
         Item item = new Item();
 
         item.setId(id);
         item.setTitle(title);
         item.setPrice(price);
 
-
         itemRepository.save(item);
 
+        return "redirect:/list";
+    }
+
+    // ajax
+    /*
+    @PostMapping("/test1")
+    String test(@RequestBody Map<String,Object> body){
+        System.out.println(body.get("name"));
+        return "redirect:/list";
+    }
+
+     */
+
+    // 간단한 자료는 쿼리 스트링
+    @GetMapping("/test1")
+    String test(@RequestParam String name, int age){
+
+        System.out.println(name);
+        System.out.println(age);
+
+        return "redirect:/list";
+    }
+
+    @PostMapping("/delete/{id}")
+    String deleteItem(@PathVariable Long id) {
+
+        itemRepository.deleteById(id);
 
         return "redirect:/list";
     }
