@@ -1,6 +1,7 @@
 package com.seungho.shop.Item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,17 @@ public class ItemController {
     }
 
     @GetMapping("/write")
-    String write() {
+    String write(Authentication auth, Model model) {
+
+        // 글 작성시 로그인 한 유저 이름도 넣어보자
+
+        // 로그아웃 상태면 강제로 list 페이지로
+        if(auth==null) {
+            return "redirect:/list";
+        }
+
+        model.addAttribute("username", auth.getName());
+
         return "write.html";
     }
 
