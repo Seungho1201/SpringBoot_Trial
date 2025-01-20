@@ -1,4 +1,4 @@
-package com.seungho.shop;
+package com.seungho.shop.Item;
 
 import jakarta.persistence.*;
 import lombok.Getter;

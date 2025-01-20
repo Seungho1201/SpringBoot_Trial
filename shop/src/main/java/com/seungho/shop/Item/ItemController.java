@@ -1,13 +1,11 @@
-package com.seungho.shop;
+package com.seungho.shop.Item;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -110,6 +108,15 @@ public class ItemController {
 
         itemRepository.deleteById(id);
 
+        return "redirect:/list";
+    }
+
+    @GetMapping("/test2")
+    String test2(){
+
+        var result = new BCryptPasswordEncoder().encode("문자");
+
+        System.out.println(result);
         return "redirect:/list";
     }
 

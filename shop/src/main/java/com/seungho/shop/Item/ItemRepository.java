@@ -1,4 +1,4 @@
-package com.seungho.shop;
+package com.seungho.shop.Item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
