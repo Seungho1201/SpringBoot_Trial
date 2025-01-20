@@ -20,5 +20,8 @@
     <div sec:authorize = "hasAuthority('일반유저')">
         <h4>일반 유저 권한</h4>
     </div>
+    <div sec:authorize = "hasAuthority('관리자')">
+        <h4>관리자</h4>
+    </div>
 </body>
 </html>

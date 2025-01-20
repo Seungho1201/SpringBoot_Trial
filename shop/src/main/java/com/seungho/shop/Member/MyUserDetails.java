@@ -39,6 +39,14 @@ public class MyUserDetails implements UserDetailsService {
         var user = result.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
+
+
+
+        if(user.getUsername().equals("admin")) {
+            System.out.println(user.getUsername());
+            authorities.add(new SimpleGrantedAuthority("관리자"));
+        }
+
         authorities.add(new SimpleGrantedAuthority("일반유저"));    // 메모일 뿐임   // 나중에 API에서 현재 유저의 권한 출력가능
 
 
