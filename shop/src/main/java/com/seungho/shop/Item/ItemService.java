@@ -26,7 +26,6 @@ public class ItemService {
 
     public Optional<Item> detailItem(Long id) {
         Optional<Item> resultItem = itemRepository.findById(id);
-
         return resultItem;
     }
 

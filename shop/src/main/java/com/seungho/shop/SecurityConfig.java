@@ -42,10 +42,12 @@ public class SecurityConfig {
                 .ignoringRequestMatchers("/login")  // csrf 보안 끌 페이지
         );
         */
+
         http.authorizeHttpRequests((authorize) ->
                 // permitAll() => 아무나 접속 허용
                 authorize.requestMatchers("/**").permitAll()
         );
+
         // 폼으로 로그인 하겟습니다
         http.formLogin((formLogin) -> formLogin.loginPage("/login") // 로그인 페이지 url
                 .defaultSuccessUrl("/list")                     // 로그인 성공시 url

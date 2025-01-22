@@ -48,3 +48,9 @@ input {
     display : block;
     margin : auto;
 }
+
+a {
+   text-decoration-line: none;
+    color: inherit; /* 링크의 색상 제거 */
+
+}
