@@ -11,25 +11,34 @@
 </head>
 <body>
 
-<div th:replace="~{nav.html::navbar}"></div>
+<div th:replace="~{nav.html::navbar}"> 네비 바 영역</div>
 
-<div class="card" th:each="i : ${items}">
+    <div class="card" th:each="i : ${items}">
 
-        <img src="https://placehold.co/300">
-        <div>
-            <a th:href="@{'detail/'+ ${i.id}}">
-                <h4 th:text="${i.title}"> 상품 이름 </h4>
-                <p th:text="${i.price}"> 상품 가격 </p>
-            </a>
-            <a th:href="@{'edit/'+ ${i.id}}">✏️</a>
+            <img src="https://placehold.co/300">
 
-            <form method="POST" th:action="@{'/delete/' + ${i.id}}">
-                <button type="submit" style="all: unset; cursor: pointer;">🗑️</button>
-            </form>
+            <div>
+                <a th:href="@{'/detail/'+ ${i.id}}">
+                    <h4 th:text="${i.title}"> 상품 이름 </h4>
+                    <p th:text="${i.price}"> 상품 가격 </p>
+                </a>
+                <a th:href="@{'/edit/'+ ${i.id}}">✏️</a>
 
+                <form method="POST" th:action="@{'/delete/' + ${i.id}}">
+                    <button type="submit" style="all: unset; cursor: pointer;">🗑️</button>
+                </form>
+            </div>
+    </div>
+
+
+    <!-- 페이지 번호 div 반복 -->
+    <div>
+        <h2>페이지 이동</h2>
+        <!-- ${#numbers.sequence(start, end) 숫자 범위 생성하는 유틸리티 함수-->
+        <div th:each="i : ${#numbers.sequence(1, page)}">
+            <a th:href="@{'/list/page/' + ${i}}" th:text="'Page ' + ${i}"></a>
         </div>
-
-</div>
+    </div>
 
 
 

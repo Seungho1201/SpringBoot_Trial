@@ -1,6 +1,8 @@
 package com.seungho.shop.Item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -62,7 +64,7 @@ public class ItemController {
                 model.addAttribute("item", result.get());
                 return "detail.html";
             } else {
-                return "redirect:/list";
+                return "redirect:/list/page/1";
             }
     }
 
@@ -74,7 +76,7 @@ public class ItemController {
         if(result.isPresent()) {
             model.addAttribute("item", result.get());
         } else {
-            return "redirect:/list";
+            return "redirect:/list/page/1";
         }
 
         return "edit.html";
@@ -91,7 +93,7 @@ public class ItemController {
 
         itemRepository.save(item);
 
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
     // ajax
@@ -130,6 +132,21 @@ public class ItemController {
         System.out.println(result);
         return "redirect:/list";
     }
+
+
+    @GetMapping("/list/page/{page}")
+    String getListPage(@PathVariable int page, Model model) {
+
+        // n번째 페이지, 페이지방 몇개?
+        Page<Item> result =  itemRepository.findPageBy(PageRequest.of(page-1, 5));
+        int pageNum = result.getTotalPages();
+
+        model.addAttribute("items", result);
+        model.addAttribute("page", pageNum);
+
+        return "list.html";
+    }
+
 
 
 
