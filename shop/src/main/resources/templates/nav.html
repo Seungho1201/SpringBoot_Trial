@@ -1,6 +1,6 @@
 <div class="nav" th:fragment="navbar" xmlns:sec="http://www.w3.org/1999/xhtml">
     <a class="logo">SpringMall</a>
-    <a href="/list">List</a>
+    <a href="/list/page/1">List</a>
     <a href="/write">Write</a>
 
 
@@ -15,7 +15,7 @@
     </div>
 
     <div sec:authorize="isAuthenticated()">
-        <a href="mypage">Mypage</a>
+        <a href="/mypage">Mypage</a>
     </div>
 
     <div sec:authorize="isAuthenticated()">

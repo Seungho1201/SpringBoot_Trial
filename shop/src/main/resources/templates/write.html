@@ -24,5 +24,26 @@
 
         <input type="submit" name="전송">
     </form>
+
+<input type="file" onchange="getURL(this)">
+
+
+
+<script>
+    async function getURL(e){
+        let file = e.files[0]
+        let name = encodeURIComponent(file.name)
+        let result = await fetch('/presigned-url?filename=' + name)
+        result = await result.text()
+
+        fetch(result, {
+            method : 'PUT',
+            body : e.files[0]
+        })
+
+    }
+</script>
+
 </body>
 </html>
+

@@ -50,7 +50,7 @@ public class SecurityConfig {
 
         // 폼으로 로그인 하겟습니다
         http.formLogin((formLogin) -> formLogin.loginPage("/login") // 로그인 페이지 url
-                .defaultSuccessUrl("/list")                     // 로그인 성공시 url
+                .defaultSuccessUrl("/list/page/1")                     // 로그인 성공시 url
                 //.failureUrl("/fail")       // 실패시 url
         );
 

@@ -21,6 +21,7 @@ public class ItemController {
     // 스프링이 오브젝트 하나 뽑아서 넣어줌
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final S3Service s3Service;
 
     @GetMapping("/list")
     String list(Model model) {
@@ -130,7 +131,7 @@ public class ItemController {
         var result = new BCryptPasswordEncoder().encode("문자");
 
         System.out.println(result);
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
 
@@ -145,6 +146,14 @@ public class ItemController {
         model.addAttribute("page", pageNum);
 
         return "list.html";
+    }
+
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    String getURL(@RequestParam String filename){
+        var result = s3Service.createPresignedUrl("test/" + filename);
+        System.out.println(result);
+        return result;
     }
 
 
