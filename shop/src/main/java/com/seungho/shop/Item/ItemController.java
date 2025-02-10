@@ -1,5 +1,7 @@
 package com.seungho.shop.Item;
 
+import com.seungho.shop.comment.Comment;
+import com.seungho.shop.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +25,7 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final ItemService itemService;
     private final S3Service s3Service;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/list")
     String list(Model model) {
@@ -36,7 +40,6 @@ public class ItemController {
     String write(Authentication auth, Model model) {
 
         // 글 작성시 로그인 한 유저 이름도 넣어보자
-
         // 로그아웃 상태면 강제로 list 페이지로
         if(auth==null) {
             return "redirect:/list";
@@ -62,7 +65,16 @@ public class ItemController {
         Optional<Item> result= itemService.detailItem(id);
 
             if(result.isPresent()) {
+
+                List<Comment> test = commentRepository.findAllByParentId(id);
+
+                if(!test.isEmpty()) {
+                    System.out.println(test);
+                    model.addAttribute("comment", test);
+                }
+
                 model.addAttribute("item", result.get());
+
                 return "detail.html";
             } else {
                 return "redirect:/list/page/1";

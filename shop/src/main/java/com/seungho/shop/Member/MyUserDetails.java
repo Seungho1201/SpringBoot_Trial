@@ -40,8 +40,6 @@ public class MyUserDetails implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-
-
         if(user.getUsername().equals("admin")) {
             System.out.println(user.getUsername());
             authorities.add(new SimpleGrantedAuthority("관리자"));
@@ -59,15 +57,4 @@ public class MyUserDetails implements UserDetailsService {
 
 }
 
-// User 클래스를 커스터마이징 해보자
-class CustomUser extends User {
 
-    public String displayName;
-
-    public CustomUser(String username,
-                      String password,
-                      Collection<? extends GrantedAuthority> authorities
-    ) {
-        super(username, password, authorities);
-    }
-}
