@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"> 네비 바 영역</div>
+
+
+<form action="/searchlist" method="GET">
+    <input name="searchText" style="display:inline">
+    <button type="submit">검색</button>
+</form>
+
+<div class="card" th:each="i : ${items}">
+
+    <img src="https://placehold.co/300">
+
+    <div>
+        <a th:href="@{'/detail/'+ ${i.id}}">
+            <h4 th:text="${i.title}"> 상품 이름 </h4>
+            <p th:text="${i.price}"> 상품 가격 </p>
+        </a>
+        <a th:href="@{'/edit/'+ ${i.id}}">✏️</a>
+
+        <form method="POST" th:action="@{'/delete/' + ${i.id}}">
+            <button type="submit" style="all: unset; cursor: pointer;">🗑️</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

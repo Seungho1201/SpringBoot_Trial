@@ -13,7 +13,13 @@
 
 <div th:replace="~{nav.html::navbar}"> 네비 바 영역</div>
 
-    <div class="card" th:each="i : ${items}">
+
+<form action="/searchlist" method="GET">
+    <input name="searchText" style="display:inline">
+    <button type="submit">검색</button>
+</form>
+
+<div class="card" th:each="i : ${items}">
 
             <img src="https://placehold.co/300">
 
@@ -28,6 +34,7 @@
                     <button type="submit" style="all: unset; cursor: pointer;">🗑️</button>
                 </form>
             </div>
+
     </div>
 
 

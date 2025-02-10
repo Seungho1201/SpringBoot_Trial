@@ -56,7 +56,7 @@ public class ItemController {
         // Service 레이어 분리
         itemService.saveItem(item);
 
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
     @GetMapping("/detail/{id}")
@@ -166,6 +166,45 @@ public class ItemController {
         var result = s3Service.createPresignedUrl("test/" + filename);
         System.out.println(result);
         return result;
+    }
+
+    @PostMapping("/search")
+    String postSearch(@RequestParam String searchText, Model model) {
+
+        // 이건 포함관계 여부라 인덱스 사용 안함
+        // full text index 쓰면 됨 => 근데 한국어, 중국어, 일본어는 쫌...
+        // 그래서 n자씩 추출해주는 n-gram parser 이용하면 더 나음
+        // var result = itemRepository.findAllByTitleContains(searchText);
+        // System.out.println(result);
+
+        // JPA 문법으로 full text index 써서 검색하려면 아마도 그런거 없음 쌩 sql 쓰면 됨
+
+
+         var result = itemRepository.rawQuery1(searchText);
+         if(result.isEmpty()) {
+             return "redirect:/list/page/1";
+         }
+
+        model.addAttribute("items", result);
+        System.out.println(result);
+
+        return "/searchlist";
+    }
+
+    @GetMapping("/searchlist")
+    String searchList(@RequestParam String searchText, Model model) {
+
+        var result = itemRepository.rawQuery1(searchText);
+
+        if(result.isEmpty()) {
+            return "redirect:/list/page/1";
+        }
+
+        model.addAttribute("items", result);
+
+        System.out.println(result);
+
+        return "/searchlist.html";
     }
 
 
