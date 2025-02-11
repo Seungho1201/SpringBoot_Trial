@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"> 네비 바 영역</div>
+
+
+<form action="/searchlist" method="GET">
+    <input name="searchText" style="display:inline">
+    <button type="submit">검색</button>
+</form>
+
+<div th:each="i : ${salelist}">
+    <hr>
+    <p th:text="${i.itemName}"></p>
+    <p th:text="${i.price}"></p>
+    <p th:text="${i.count}"></p>
+    <p th:text="${i.created}"></p>
+    <p th:text="${i.member}"></p>
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

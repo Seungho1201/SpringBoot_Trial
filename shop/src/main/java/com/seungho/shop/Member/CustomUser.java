@@ -8,7 +8,9 @@ import java.util.Collection;
 // User 클래스를 커스터마이징 해보자
 public class CustomUser extends User {
 
+
     public String displayName;
+    public Long id;
 
     public CustomUser(String username,
                       String password,

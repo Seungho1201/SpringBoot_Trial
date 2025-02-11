@@ -23,12 +23,22 @@
     <p th:text="${item.price + '원'}">7억</p>
 </div>
 
+<form action="/sales" method="POST">
+    <input name="itemName" th:value="${item.title}">
+    <input name="price" th:value="${item.price}">
+    <input name="count" th:value="1">
+
+    <button>구매</button>
+</form>
+
 <div th:each="j : ${comment}">
     <hr>
     <p th:text="${j.username}"> </p>
     <p th:text="${j.content}"> </p>
 
 </div>
+
+
 
 <form action="/comment" method="POST">
     <input name="content">
