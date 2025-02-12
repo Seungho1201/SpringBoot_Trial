@@ -2,6 +2,7 @@ package com.seungho.shop.sales;
 
 import com.seungho.shop.Member.CustomUser;
 import com.seungho.shop.Member.Member;
+import com.seungho.shop.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 public class SalesController {
 
     private final SalesRepository salesRepository;
+    private final MemberRepository memberRepository;
 
     @PostMapping("/sales")
     String sales(@RequestParam String itemName,
@@ -35,7 +37,7 @@ public class SalesController {
         var data = new Sales();
 
         var member = new Member();
-        member.setId(1L);
+        member.setId(user.id);
 
         data.setItemName(itemName);
         data.setMember(member);
@@ -48,12 +50,16 @@ public class SalesController {
     }
 
     @GetMapping("/salelist")
-    String salelist(Model model) {
-
-        //model.addAttribute("salelist", salesRepository.findAll());
+    String salelist(Model model,
+                    Authentication auth) {
+        CustomUser user = (CustomUser) auth.getPrincipal();
+        model.addAttribute("salelist", salesRepository.findAll());
 
         List<Sales> sales = salesRepository.customFindAll();
-        System.out.println(sales);
+        // System.out.println(sales.get(0).getItemName());
+        //System.out.println(sales.get(0).getMember());
+
+        System.out.println(memberRepository.findById(user.id));
 
         //System.out.println(salesRepository.findAll());
         return "salelist.html";
